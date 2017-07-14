@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Techo_App.Views.EventosPage" 
+             xmlns:local="clr-namespace:Techo_App;assembly=Techo_App"
+             Icon="events.png">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="EventosListView" ItemsSource="{Binding ListaEventos}" HasUnevenRows="True" >
+                <ListView.Behaviors>
+                    <local:ListViewBehaviorNoSelected/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout.BackgroundColor>
+                                        <OnPlatform x:TypeArguments="Color" Android="#025d91" WinPhone="#025d91" iOS="#025d91"></OnPlatform>
+                                    </StackLayout.BackgroundColor>
+                                    <Label x:Name="lblNombre" Text="{Binding nombre}" TextColor="White" HorizontalTextAlignment="Center" Font="Large"></Label>
+                                    <Label Text="{Binding fechaInicio}" TextColor="White" Opacity="0.3" HorizontalTextAlignment="Center"></Label>
+                                    <Label Text="{Binding ubicacionNombre}" TextColor="White" Font="Italic" HorizontalTextAlignment="End"></Label>
+                                    <Grid Padding="90, 0, 90, 10">
+                                        <Button x:Name="btnEvento" TextColor="White" Font="Bold" Text="Participar" BindingContext="{Binding Source={x:Reference EventosListView}, Path=BindingContext}" Command="{Binding EventoPickedCommand}" CommandParameter="{Binding Source={x:Reference lblNombre}, Path=BindingContext} ">
+                                            <Button.BackgroundColor>
+                                                <OnPlatform x:TypeArguments="Color" Android="#3d84f7" WinPhone="#3d84f7" iOS="#3d84f7"></OnPlatform>    
+                                            </Button.BackgroundColor>
+                                        </Button>
+                                    </Grid>
+                                </StackLayout>
+                                <Grid
+                                      HeightRequest="10"
+                                    BackgroundColor="Transparent"
+                                    />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

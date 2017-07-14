@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Techo_App.homePage"
+             Title="Menu">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CustomLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="#3d84f7"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+            <OnPlatform x:Key="EventoImage" x:TypeArguments="ImageSource">
+                <OnPlatform.iOS>evento1.png</OnPlatform.iOS>
+                <OnPlatform.Android>evento1.png</OnPlatform.Android>
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <StackLayout x:Name="EventosSL" Orientation="Vertical" VerticalOptions="Start" >
+                        <Label x:Name="eventosLabel" Text="EVENTOS" Style="{StaticResource CustomLabelStyle}"/>
+                        <Grid VerticalOptions="Start">
+                            <Image VerticalOptions="Start" x:Name="eventosImg" Source="{StaticResource EventoImage}"/>
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <StackLayout x:Name="ComunidadSL" Orientation="Vertical" VerticalOptions="Start" >
+                        <Label x:Name="comunidadLabel" Text="COMUNIDAD" Style="{StaticResource CustomLabelStyle}"/>
+                        <Grid VerticalOptions="Start">
+                            <Image VerticalOptions="Start" x:Name="comunidadImg" Source="{StaticResource EventoImage}"/>
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <StackLayout x:Name="SociosSL" Orientation="Vertical" VerticalOptions="Start">
+                        <Label x:Name="SociosLabel" Text="SOCIOS" Style="{StaticResource CustomLabelStyle}"/>
+                        <Grid VerticalOptions="Start">
+                            <Image VerticalOptions="Start" x:Name="sociosImg" Source="{StaticResource EventoImage}"/>
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <StackLayout x:Name="EmpleadosSL" Orientation="Vertical" VerticalOptions="Start">
+                        <Label x:Name="EmpleadosLabel" Text="EMPLEADOS" Style="{StaticResource CustomLabelStyle}"/>
+                        <Grid VerticalOptions="Start">
+                            <Image VerticalOptions="Start" x:Name="empleadosImg" Source="{StaticResource EventoImage}"/>
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Techo_App.DetalleEventoPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CustomLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="#3d84f7"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+            <OnPlatform x:Key="eventoImage" x:TypeArguments="ImageSource">
+                <OnPlatform.iOS>amigos.png</OnPlatform.iOS>
+                <OnPlatform.Android>amigos.png</OnPlatform.Android>
+            </OnPlatform>
+            <OnPlatform x:Key="checklistImage" x:TypeArguments="ImageSource">
+                <OnPlatform.iOS>checklist.png</OnPlatform.iOS>
+                <OnPlatform.Android>checklist.png</OnPlatform.Android>
+            </OnPlatform>
+            <OnPlatform x:Key="emailImage" x:TypeArguments="ImageSource">
+                <OnPlatform.iOS>email.png</OnPlatform.iOS>
+                <OnPlatform.Android>email.png</OnPlatform.Android>
+            </OnPlatform>
+            <OnPlatform x:Key="llamarImage" x:TypeArguments="ImageSource">
+                <OnPlatform.iOS>llamar.png</OnPlatform.iOS>
+                <OnPlatform.Android>llamar.png</OnPlatform.Android>
+            </OnPlatform>
+            <OnPlatform x:Key="amigosImage" x:TypeArguments="ImageSource">
+                <OnPlatform.iOS>amigos.png</OnPlatform.iOS>
+                <OnPlatform.Android>amigos.png</OnPlatform.Android>
+            </OnPlatform>
+            <OnPlatform x:Key="bannerImage" x:TypeArguments="ImageSource">
+                <OnPlatform.iOS>BannerColecta.png</OnPlatform.iOS>
+                <OnPlatform.Android>BannerColecta.png</OnPlatform.Android>
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Grid HeightRequest="200">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout>
+                        <Image VerticalOptions="Start" x:Name="bannerImg" Source="{StaticResource bannerImage}"/>
+                        <Label x:Name="labelEvento" HorizontalOptions="Center" Text="Evento: Colecta"/>
+                    </StackLayout>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1" Grid.Row="0">
+                        <StackLayout x:Name="ChecklistSL" Orientation="Vertical">
+                            <Grid VerticalOptions="Start">
+                                <Image VerticalOptions="Start" x:Name="checklistImg" Source="{StaticResource checklistImage}"/>
+                            </Grid>
+                        </StackLayout>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <StackLayout x:Name="EmailSL" Orientation="Vertical">
+                            <Grid VerticalOptions="Start">
+                                <Image VerticalOptions="Start" x:Name="emailImg" Source="{StaticResource emailImage}"/>
+                            </Grid>
+                        </StackLayout>
+                    </Grid>
+                    <Grid Grid.Column="2" Grid.Row="0">
+                        <StackLayout x:Name="AmigosSL" Orientation="Vertical">
+                            <Grid VerticalOptions="Start">
+                                <Image VerticalOptions="Start" x:Name="amigosImg" Source="{StaticResource amigosImage}"/>
+                            </Grid>
+                        </StackLayout>
+                    </Grid>
+                    <Grid Grid.Column="2" Grid.Row="1">
+                        <StackLayout x:Name="LlamarSL" Orientation="Vertical">
+                            <Grid VerticalOptions="Start">
+                                <Image VerticalOptions="Start" x:Name="llamarImg" Source="{StaticResource llamarImage}"/>
+                            </Grid>
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+        
+    </ContentPage.Content>
+</ContentPage>

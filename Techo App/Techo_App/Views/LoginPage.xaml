@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Techo_App.Views.LoginPage"
+             xmlns:ViewModels="clr-namespace:Techo_App.ViewModels;assembly=Techo_App"
+             xmlns:Converters="clr-namespace:Techo_App.Converters;assembly=Techo_App">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converters:TextToColorConverter x:Key="TextToColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Padding="10, 0, 10, 0">
+                <Label Text="Correo" />
+                <Entry Text="{Binding identidad.email, Mode=TwoWay}"/>
+                <Label Text="Contraseña" />
+                <Entry Text="{Binding identidad.password, Mode=TwoWay}"/>
+                <Button x:Name="btnIniciar" BackgroundColor="GreenYellow" Text="INICIAR SESION" Command="{Binding LoginCommand}"/>
+                <Button x:Name="btnCancelar" BackgroundColor="GreenYellow" Text="CANCELAR" Command="{Binding CancelarCommand}"/>
+                <Label x:Name="lblEstado" Text="{Binding mensaje}" HorizontalOptions="Center" FontSize="24" TextColor="{Binding mensaje, Converter={StaticResource TextToColorConverter}}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
