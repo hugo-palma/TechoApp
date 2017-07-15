@@ -7,15 +7,15 @@
         <ScrollView>
             <StackLayout Orientation="Vertical" Padding="10, 0, 30, 0">
                 <Label Text="Nombre" />
-                <Entry Text="{Binding SelectedUsuario.firstName, Mode=TwoWay}"/>
+                <Entry Text="{Binding SelectedUsuario.nombre, Mode=TwoWay}"/>
                 <Label Text="Apellido" />
-                <Entry Text="{Binding SelectedUsuario.lastName, Mode=TwoWay}"/>
+                <Entry Text="{Binding SelectedUsuario.apellido, Mode=TwoWay}"/>
                 <Label Text="Contraseña" />
                 <Entry Text="{Binding SelectedUsuario.password, Mode=TwoWay}" IsPassword="True"/>
                 <Label Text="Correo" />
-                <Entry Text="{Binding SelectedUsuario.email, Mode=TwoWay}"/>
+                <Entry Text="{Binding SelectedUsuario.correo, Mode=TwoWay}"/>
                 <Label Text="Foto" />
-                <Image x:Name="FileImage" BindingContext="{Binding userPhoto, Mode=TwoWay}"/>
+                <Image x:Name="FileImage"/>
                 <Button x:Name="btnFoto" Text="Seleccionar" BackgroundColor="White" Clicked="btnFoto_Clicked"/>
                 <Button x:Name="btnEnviar" BackgroundColor="GreenYellow" Text="Crear cuenta" Command="{Binding PostCommand}"/>
                 

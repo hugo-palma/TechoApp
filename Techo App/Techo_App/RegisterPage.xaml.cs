@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -10,6 +7,7 @@ using Techo_App.Views;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using Techo_App.Models;
+using Techo_App.ViewModels;
 
 namespace Techo_App
 {
@@ -19,9 +17,15 @@ namespace Techo_App
         private Evento evento;
         public RegisterPage(Evento evento)
         {
-            InitializeComponent();
             this.evento = evento;
+            InitializeComponent();
+            tcs = new TaskCompletionSource<bool>();
         }
+        public Task PageClosedTask { get { return tcs.Task; } }
+
+        private TaskCompletionSource<bool> tcs { get; set; }
+
+
         private string clientId = "1857233457861970";
         private string clave = "731178225f0645d15787e5d027269f0b";
         private string requestOriginal;
@@ -42,22 +46,28 @@ namespace Techo_App
         }
         private async void WebViewOnNavigated(Object sender, WebNavigatedEventArgs e)
         {
-            var newapiRequest = "https://graph.facebook.com/v2.9/oauth/access_token?client_id="
+            var code = ExtractCodeFromUrl(e.Url);
+            if(code != "")
+            {
+                var page = new ContentPage();
+                Content = page.Content;
+                var newapiRequest = "https://graph.facebook.com/v2.9/oauth/access_token?client_id="
                 + clientId
                 + "&redirect_uri=https://www.facebook.com/connect/login_success.html"
                 + "&client_secret="
                 + clave
                 + "&code="
                 + ExtractCodeFromUrl(e.Url);
-            var httpClient = new HttpClient();
-            var accesTokenJson = await httpClient.GetStringAsync(newapiRequest);
+                var httpClient = new HttpClient();
+                var accesTokenJson = await httpClient.GetStringAsync(newapiRequest);
 
-            string access_token = (string)JObject.Parse(accesTokenJson)["access_token"];
+                string access_token = (string)JObject.Parse(accesTokenJson)["access_token"];
 
-            var accessToken = access_token;
-            if (accessToken != "")
-            {
-                await GetFacebookProfileAsync(accessToken);
+                var accessToken = access_token;
+                if (accessToken != "")
+                {
+                    await GetFacebookProfileAsync(accessToken);
+                }
             }
         }
         private string ExtractAccessTokenFromUrl(string url)
@@ -76,7 +86,7 @@ namespace Techo_App
         }
         private string ExtractCodeFromUrl(string url)
         {
-            if (url.Contains("code"))
+            if (url.Contains("?code="))
             {
                 var at = url.Replace("https://www.facebook.com/connect/login_success.html?code=", "");
                 if (Device.RuntimePlatform == Device.WinPhone || Device.RuntimePlatform == Device.iOS)
@@ -95,11 +105,13 @@ namespace Techo_App
                 + "&access_token=" + accessToken;
             var httpClient = new HttpClient();
             var userJson = await httpClient.GetStringAsync(requestUrl);
-            await Navigation.PushAsync(new DetalleEventoPage(evento));
+
+            Navigation.InsertPageBefore(new DetalleEventoPage(evento), this);
+            await Navigation.PopAsync();
         }
         private async void btnCorreo_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CreateRegisterPage(evento));
+            await Navigation.PushAsync(new CreateRegisterPage(evento, this));
         }
         private async void btnIniciar_Clicked(object sender, EventArgs e)
         {
@@ -109,5 +121,6 @@ namespace Techo_App
         {
             await Navigation.PopAsync();
         }
+        
     }
 }

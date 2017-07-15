@@ -3,49 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Techo_App.ChecklistPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <StackLayout x:Name="sl1" Orientation="Vertical">
-                        <Label x:Name="label1" Text="Bloqueador solar" FontSize="24" />
-                    </StackLayout>
-                </Grid>
-                <Grid Grid.Column="1" Grid.Row="0">
-                    <StackLayout Orientation="Vertical">
-                        <Switch x:Name="switch1" Toggled="switch1_Toggled"/>
-                    </StackLayout>
-                </Grid>
-                <Grid Grid.Column="0" Grid.Row="1">
-                    <StackLayout x:Name="sl2" Orientation="Vertical">
-                        <Label x:Name="label2" Text="Sleeping Bag" FontSize="24" />
-                    </StackLayout>
-                </Grid>
-                <Grid Grid.Column="1" Grid.Row="1">
-                    <StackLayout Orientation="Vertical">
-                        <Switch x:Name="switch2" Toggled="switch2_Toggled"/>
-                    </StackLayout>
-                </Grid>
-                <Grid Grid.Column="0" Grid.Row="2">
-                    <StackLayout x:Name="sl3" Orientation="Vertical">
-                        <Label x:Name="label3" Text="Botiquín de primeros auxilios" FontSize="24" />
-                    </StackLayout>
-                </Grid>
-                <Grid Grid.Column="1" Grid.Row="2">
-                    <StackLayout Orientation="Vertical">
-                        <Switch x:Name="switch3" Toggled="switch3_Toggled"/>
-                    </StackLayout>
-                </Grid>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="btnFacebook" IsVisible="False" BackgroundColor="White" Text="Compartir" Image="facebook.png"></Button>
-            </Grid>
+        <StackLayout Orientation="Vertical">
+            <StackLayout x:Name="sl1" Orientation="Horizontal">
+                <Label x:Name="label1" Text="Bloqueador solar" FontSize="24" HorizontalOptions="Start" />
+                <Switch x:Name="switch1" Toggled="switch1_Toggled" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout x:Name="sl2" Orientation="Horizontal">
+
+                <Label x:Name="label2" HorizontalOptions="Start" Text="Sleeping Bag" FontSize="24" />
+                <Switch x:Name="switch2" Toggled="switch2_Toggled" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout x:Name="sl3" Orientation="Horizontal">
+                <Label x:Name="label3" HorizontalOptions="Start" Text="Botiquín de primeros auxilios" FontSize="24" />
+                <Switch x:Name="switch3" HorizontalOptions="EndAndExpand" Toggled="switch3_Toggled"/>
+            </StackLayout>
+            <Button x:Name="btnFacebook" IsVisible="False" BackgroundColor="White" Text="Compartir" Image="facebook.png"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

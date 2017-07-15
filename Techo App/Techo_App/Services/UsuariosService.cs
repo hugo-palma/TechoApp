@@ -8,6 +8,7 @@ using Techo_App.RestClient;
 using System.Diagnostics;
 using Xamarin.Forms;
 using Techo_App.Services;
+using Newtonsoft.Json.Linq;
 
 [assembly: Dependency(typeof(UsuariosService))]
 namespace Techo_App.Services
@@ -18,25 +19,44 @@ namespace Techo_App.Services
         {
             RestClient<Usuario> restClient = new RestClient<Usuario>("users");
             string jsonResult = await restClient.PostAsync(usuario);
-            Response response = new Response();
             //api/friends/{id}
-            response = JsonConvert.DeserializeObject<Response>(jsonResult);
-            if(response.status == "added")
+
+            string status = (string)JObject.Parse(jsonResult)["status"];
+            
+            if (status == "added")
             {
                 return "added";
             }
             else
             {
-                try
+                var jsonUsuario = JObject.Parse(jsonResult)["options"];
+                Sesion sesion = new Sesion();
+                if (jsonUsuario["idUsuarios"] != null)
                 {
-                    return "user";
+                    sesion.idUsuarios = jsonUsuario["idUsuarios"].Value<int>();
                 }
-                catch(Exception e)
+                if (jsonUsuario["nombre"] != null)
                 {
-                    Debug.WriteLine(e);
-                    return "error";
+                    sesion.firstName = jsonUsuario["nombre"].Value<string>();
                 }
+                if (jsonUsuario["apellido"] != null)
+                {
+                    sesion.lastName = jsonUsuario["apellido"].Value<string>();
+                }
+                if (jsonUsuario["foto"] != null)
+                {
+                    sesion.photo = jsonUsuario["foto"].Value<string>();
+                }
+                if (jsonUsuario["idRol"] != null)
+                {
+                    sesion.role = jsonUsuario["idRol"].Value<int>();
+                }
+                SesionService sesionService = new SesionService();
+                await sesionService.SetSesionDbAsync(sesion);
+                //no esta
+                return "unsuccessful";
             }
+            
         }
         
     }

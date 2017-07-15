@@ -2,17 +2,10 @@
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using System.Diagnostics;
 using Techo_App.ViewModels;
 using Techo_App.Models;
 namespace Techo_App.Views
@@ -22,11 +15,10 @@ namespace Techo_App.Views
     {
         private MediaFile _mediaFile;
         private UsuariosViewModel usuariosViewModel;
-        public CreateRegisterPage(Evento evento)
+        public CreateRegisterPage(Evento evento, RegisterPage registerPage)
         {
             InitializeComponent();
-            usuariosViewModel = new UsuariosViewModel(evento);
-            usuariosViewModel.Navigation = Navigation;
+            usuariosViewModel = new UsuariosViewModel(evento, Navigation, registerPage);
             BindingContext = usuariosViewModel;
         }
 

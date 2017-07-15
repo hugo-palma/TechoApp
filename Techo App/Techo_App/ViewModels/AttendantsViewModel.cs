@@ -17,7 +17,7 @@ namespace Techo_App.ViewModels
     {
         private INavigation Navigation;
         private Evento evento;
-        public ObservableCollection<Usuario> usuarios { get; set; }
+        public ObservableCollection<Voluntario> usuarios { get; set; }
         private ContentPage content;
         public AttendantsViewModel(INavigation Navigation, Evento evento, ContentPage content)
         {
@@ -43,27 +43,42 @@ namespace Techo_App.ViewModels
         private async Task InitializeDataAsync()
         {
             sesionService = new SesionService();
-            var listaTemp = new List<Usuario>();
+            var listaTemp = new List<Voluntario>();
 
             friendsService = new FriendsService();
             int idUsuario = await sesionService.GetSesionIdUserDbAsync();
             listaTemp = await friendsService.GetUsersByEventAsync(idUsuario, evento.idEventos);
 
-            usuarios = new ObservableCollection<Usuario>();
+            usuarios = new ObservableCollection<Voluntario>();
             ListView listView = new ListView();
-            listView.RowHeight = 170;
+            listView.RowHeight = 130;
+            ListViewBehaviorNoSelected lBNS = new ListViewBehaviorNoSelected();
+            listView.Behaviors.Add(lBNS);
             listView.ItemTemplate = new DataTemplate(typeof(CustomUsuarioCell));
-            foreach (var usuario in listaTemp)
+            foreach (var voluntario in listaTemp)
             {
-                if(usuario.foto == null)
+                if(voluntario.amigos == 0)
                 {
-                    usuario.foto = "photo.png";
+                    voluntario.textoBoton = "Solicitud Pendiente";
+                }
+                else if(voluntario.amigos == 1)
+                {
+                    voluntario.textoBoton = "Ver";
+                }
+                else if(voluntario.amigos == 2)
+                {
+                    voluntario.textoBoton = "Enviar Solicitud";
+                }
+
+                if(voluntario.foto == null)
+                {
+                    voluntario.foto = "photo.png";
                 }
                 else
                 {
-                    usuario.foto = "http://www.palmapplicationsv.com/techoapp/public/" + usuario.foto;
+                    voluntario.foto = "http://www.palmapplicationsv.com/techoapp/public/" + voluntario.foto;
                 }
-                usuarios.Add(usuario);
+                usuarios.Add(voluntario);
             }
             listView.ItemsSource = usuarios;
             content.Content = listView;
@@ -99,24 +114,26 @@ namespace Techo_App.ViewModels
             var apellidoLabel = new Label();
             var buttonAgregar = new Button();
             var verticaLayout = new StackLayout();
+            var completoVerticalLayout = new StackLayout();
+            var completoHorizontalLayout = new StackLayout();
             var horizontalLayout = new StackLayout();
-
+            var boxview = new BoxView();
             //asignando bindings
             nombreLabel.SetBinding(Label.TextProperty, new Binding("nombre"));
             apellidoLabel.SetBinding(Label.TextProperty, new Binding("apellido"));
             Image temporal = new Image();
             tempLabel.SetBinding(Label.TextProperty, new Binding("foto"));
-            Debug.WriteLine(tempLabel.Text + ", seria la foto que deseo");
             imagenPerfil.SetBinding(Image.SourceProperty, "foto");
-            //imagenPerfil.Source = ImageSource.FromUri(new Uri("http://www.palmapplicationsv.com/techoapp/public/" + tempLabel.Text));
-            //imagenPerfil.Source = ImageSource.FromFile("photo.png");
+            buttonAgregar.SetBinding(Button.TextProperty, "textoBoton");
 
             //asignando propiedas de diseño
+            completoHorizontalLayout.BackgroundColor = Color.FromHex("025d91");
             horizontalLayout.Orientation = StackOrientation.Horizontal;
-            horizontalLayout.HorizontalOptions = LayoutOptions.Fill;
-            verticaLayout.BackgroundColor = Color.FromHex("025d91");
+            horizontalLayout.HorizontalOptions = LayoutOptions.FillAndExpand;
+            completoHorizontalLayout.Orientation = StackOrientation.Horizontal;
+            completoHorizontalLayout.HorizontalOptions = LayoutOptions.Fill;
             buttonAgregar.BackgroundColor = Color.FromHex("3d84f7");
-            buttonAgregar.Text = "Agregar";
+            verticaLayout.HorizontalOptions = LayoutOptions.Center;
             imagenPerfil.HorizontalOptions = LayoutOptions.Start;
             imagenPerfil.WidthRequest = 100;
             imagenPerfil.HeightRequest = 100;
@@ -124,16 +141,20 @@ namespace Techo_App.ViewModels
             nombreLabel.TextColor = Color.White;
             apellidoLabel.FontSize = 24;
             apellidoLabel.TextColor = Color.White;
-
+            //completoVerticalLayout.BackgroundColor = Color.Red;
+            //boxview.HeightRequest = 5;
             //agregando hijos a las jerarquias de vistas
 
-            horizontalLayout.Children.Add(imagenPerfil);
+            
             horizontalLayout.Children.Add(nombreLabel);
             horizontalLayout.Children.Add(apellidoLabel);
             verticaLayout.Children.Add(horizontalLayout);
             verticaLayout.Children.Add(buttonAgregar);
-
-            View = verticaLayout;
+            completoHorizontalLayout.Children.Add(imagenPerfil);
+            completoHorizontalLayout.Children.Add(verticaLayout);
+            completoVerticalLayout.Children.Add(completoHorizontalLayout);
+            //completoVerticalLayout.Children.Add(boxview);
+            View = completoVerticalLayout;
         }
     }
 }

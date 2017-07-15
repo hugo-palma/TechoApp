@@ -9,9 +9,10 @@ using Xamarin.Forms;
 
 namespace Techo_App.ViewModels
 {
-    class EventosViewModel : INotifyPropertyChanged
+    public class EventosViewModel : INotifyPropertyChanged
     {
         private INavigation Navigation;
+        public bool logeado = false;
         private SesionService sesionService = new SesionService();
         private UsuariosEventosService usuariosEventosService;
         private string _textoBtn;
@@ -96,7 +97,8 @@ namespace Techo_App.ViewModels
                     }
                     else
                     {
-                        await Navigation.PushAsync(new RegisterPage(eventoSeleccionado));
+                        RegisterPage rp = new RegisterPage(eventoSeleccionado);
+                        await Navigation.PushAsync(rp);
                     }
                 });
             }
@@ -118,6 +120,10 @@ namespace Techo_App.ViewModels
             List<Sesion> listaSesiones = new List<Sesion>();
             listaSesiones = sesionesIni;
             return listaSesiones[0].idUsuarios;
+        }
+        public void setLogeado(bool estado)
+        {
+            this.logeado = estado;
         }
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -12,9 +12,13 @@ namespace Techo_App.ViewModels
     class UsuariosViewModel : INotifyPropertyChanged
     {
         private Evento evento;
-        public UsuariosViewModel(Evento evento)
+        private INavigation Navigation;
+        private RegisterPage registerPage;
+        public UsuariosViewModel(Evento evento, INavigation Navigation, RegisterPage registerPage)
         {
             this.evento = evento;
+            this.registerPage = registerPage;
+            this.Navigation = Navigation;
         }
         MediaFile _mediaFile;
         private Image _photoUsuario = new Image();
@@ -26,7 +30,6 @@ namespace Techo_App.ViewModels
                 OnPropertyChanged();
             }
         }
-        public INavigation Navigation;
         public Usuario SelectedUsuario
         {
             get { return _SelectedUsuario; }
@@ -64,12 +67,15 @@ namespace Techo_App.ViewModels
                     if(result.GetType() == typeof(Usuario))
                     {
                         //insertar datos en base de datos de sqlite
-                        await Navigation.PushAsync(new DetalleEventoPage(evento));
+                        Navigation.InsertPageBefore(new DetalleEventoPage(evento), registerPage);
+                        await Navigation.PopToRootAsync();
                     }
                     else if(result.ToString() == "added")
                     {
                         //cambiar a eventodetail
-                        await Navigation.PushAsync(new DetalleEventoPage(evento));
+                        Navigation.InsertPageBefore(new DetalleEventoPage(evento), registerPage);
+                        Navigation.RemovePage(registerPage);
+                        await Navigation.PopAsync();
                     }
                 });
             }

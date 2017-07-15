@@ -7,9 +7,9 @@ namespace Techo_App.Services
 {
     public class FriendsService
     {
-        public async Task<List<Usuario>>GetUsersByEventAsync(int idUsuario, int idEvento)
+        public async Task<List<Voluntario>>GetUsersByEventAsync(int idUsuario, int idEvento)
         {
-            RestClient<Usuario> restClient = new RestClient<Usuario>("attendants", idUsuario.ToString(), idEvento.ToString());
+            RestClient<Voluntario> restClient = new RestClient<Voluntario>("attendants", idUsuario.ToString(), idEvento.ToString());
             var listaEventos = await restClient.GetAsync();
             return listaEventos;
         }

@@ -21,13 +21,11 @@
                                     <Label x:Name="lblNombre" Text="{Binding nombre}" TextColor="White" HorizontalTextAlignment="Center" Font="Large"></Label>
                                     <Label Text="{Binding fechaInicio}" TextColor="White" Opacity="0.3" HorizontalTextAlignment="Center"></Label>
                                     <Label Text="{Binding ubicacionNombre}" TextColor="White" Font="Italic" HorizontalTextAlignment="End"></Label>
-                                    <Grid Padding="90, 0, 90, 10">
-                                        <Button x:Name="btnEvento" TextColor="White" Font="Bold" Text="Participar" BindingContext="{Binding Source={x:Reference EventosListView}, Path=BindingContext}" Command="{Binding EventoPickedCommand}" CommandParameter="{Binding Source={x:Reference lblNombre}, Path=BindingContext} ">
+                                        <Button x:Name="btnEvento" TextColor="White" Font="Bold" Text="Participar" HorizontalOptions="Center" BindingContext="{Binding Source={x:Reference EventosListView}, Path=BindingContext}" Command="{Binding EventoPickedCommand}" CommandParameter="{Binding Source={x:Reference lblNombre}, Path=BindingContext} ">
                                             <Button.BackgroundColor>
                                                 <OnPlatform x:TypeArguments="Color" Android="#3d84f7" WinPhone="#3d84f7" iOS="#3d84f7"></OnPlatform>    
                                             </Button.BackgroundColor>
                                         </Button>
-                                    </Grid>
                                 </StackLayout>
                                 <Grid
                                       HeightRequest="10"
