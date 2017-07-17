@@ -66,17 +66,7 @@ namespace Techo_App.ViewModels
                 listaTemp = await eventosServices.GetEventosAsync();
             }
             ListaEventos = listaTemp;
-            foreach (var item in ListaEventos)
-            {
-                if(item.registrado == 1)
-                {
-                    textoBtn = "Ver";
-                }
-                else if(item.registrado == 0)
-                {
-                    textoBtn = "Participar";
-                }
-            }
+            textoBtn = "participar";
             //select from usuario
         }
         public Command EventoPickedCommand

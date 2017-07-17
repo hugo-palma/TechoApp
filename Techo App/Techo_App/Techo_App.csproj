@@ -41,9 +41,6 @@
     <Compile Include="ChecklistPage.xaml.cs">
       <DependentUpon>ChecklistPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConversacionesPage.xaml.cs">
-      <DependentUpon>ConversacionesPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\TextToColorConverter.cs" />
     <Compile Include="Helpers\AsyncLock.cs" />
     <Compile Include="Helpers\AsyncSemaphore.cs" />
@@ -60,11 +57,15 @@
     <Compile Include="Services\UsuariosEventosService.cs" />
     <Compile Include="Services\UsuariosService.cs" />
     <Compile Include="ViewModels\AttendantsViewModel.cs" />
+    <Compile Include="ViewModels\ConversacionesViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OpcionesViewModel.cs" />
     <Compile Include="ViewModels\UsuariosViewModel.cs" />
     <Compile Include="Views\AttendantsPage.xaml.cs">
       <DependentUpon>AttendantsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConversacionesPage.xaml.cs">
+      <DependentUpon>ConversacionesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateRegisterPage.xaml.cs">
       <DependentUpon>CreateRegisterPage.xaml</DependentUpon>
@@ -137,12 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DetalleEventoPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ConversacionesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -245,6 +240,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\AttendantsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ConversacionesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

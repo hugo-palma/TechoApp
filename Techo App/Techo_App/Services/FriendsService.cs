@@ -13,5 +13,11 @@ namespace Techo_App.Services
             var listaEventos = await restClient.GetAsync();
             return listaEventos;
         }
+        public async Task <List<Usuario>>GetFriendsById(int idUsuario)
+        {
+            RestClient<Usuario> restClient = new RestClient<Usuario>("friends", idUsuario.ToString());
+            var listaAmigos = await restClient.GetAsync();
+            return listaAmigos;
+        }
     }
 }

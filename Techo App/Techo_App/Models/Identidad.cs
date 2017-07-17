@@ -8,7 +8,7 @@ namespace Techo_App.Models
 {
     public class Identidad
     {
-        public string email { get; set; }
+        public string correo { get; set; }
         public string password { get; set;  }
     }
 }

@@ -13,7 +13,7 @@
         <ScrollView>
             <StackLayout Orientation="Vertical" Padding="10, 0, 10, 0">
                 <Label Text="Correo" />
-                <Entry Text="{Binding identidad.email, Mode=TwoWay}"/>
+                <Entry Text="{Binding identidad.correo, Mode=TwoWay}"/>
                 <Label Text="Contraseña" />
                 <Entry Text="{Binding identidad.password, Mode=TwoWay}"/>
                 <Button x:Name="btnIniciar" BackgroundColor="GreenYellow" Text="INICIAR SESION" Command="{Binding LoginCommand}"/>

@@ -9,7 +9,7 @@ namespace Techo_App.Models
         public string correo { get; set; }
         public string foto { get; set; }
         public string password { get; set; }
-        public int role { get; set; }
+        public int idRol { get; set; }
         public string nombreRol { get; set; }
     }
     

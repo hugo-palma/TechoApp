@@ -62,7 +62,7 @@ namespace Techo_App.ViewModels
                         _SelectedUsuario.foto = null;
                     }
                     //logica de envio
-                    _SelectedUsuario.role = 1;
+                    _SelectedUsuario.idRol = 1;
                     var result = await usuariosServices.PostUsuarioAsync(_SelectedUsuario);
                     if(result.GetType() == typeof(Usuario))
                     {

@@ -7,7 +7,7 @@ using Techo_App.Views;
 using Techo_App.Services;
 using Techo_App.Models;
 using System.Threading.Tasks;
-
+using System.Diagnostics;
 namespace Techo_App
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -28,6 +28,7 @@ namespace Techo_App
                     new ConversacionesPage()
                 }
             };
+            
             var masterPageItem = new List<MasterPageItem>();
             masterPageItem.Add(new MasterPageItem
             {
@@ -53,7 +54,14 @@ namespace Techo_App
                 Sesion sesion = listaSesiones[0];
                 if (sesion != null)
                 {
-                    imagenPerfil.Source = ImageSource.FromUri(new Uri("http://www.palmapplicationsv.com/techoapp/public/" + sesion.photo));
+                    if(sesion.photo.Contains("https:"))
+                    {
+                        imagenPerfil.Source = ImageSource.FromUri(new Uri(sesion.photo));
+                    }
+                    else
+                    {
+                        imagenPerfil.Source = ImageSource.FromUri(new Uri("http://www.palmapplicationsv.com/techoapp/public/" + sesion.photo));
+                    }
                 }
                 else
                 {
@@ -78,6 +86,19 @@ namespace Techo_App
                     IsPresented = false;
                 }
             }
+        }
+        protected override void OnAppearing()
+        {
+            ImprimirImagen();
+            Detail = new TabbedPage
+            {
+                Children =
+                {
+                    new EventosPage(),
+                    new ConversacionesPage()
+                }
+            };
+            base.OnAppearing();
         }
     }
 }

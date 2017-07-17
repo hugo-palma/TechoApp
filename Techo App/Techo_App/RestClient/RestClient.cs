@@ -37,6 +37,9 @@ namespace Techo_App.RestClient
                 case "eventsByAssistance":
                     WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/eventsbyassistance/" + opcional;
                     break;
+                case "friends":
+                    WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/friends/" + opcional;
+                    break;
             }
         }
         public RestClient(string opcion, string opcional1, string opcional2)

@@ -8,6 +8,7 @@ using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using Techo_App.Models;
 using Techo_App.ViewModels;
+using Techo_App.Services;
 
 namespace Techo_App
 {
@@ -15,6 +16,7 @@ namespace Techo_App
     public partial class RegisterPage : ContentPage
     {
         private Evento evento;
+        private UsuariosService usuariosService;
         public RegisterPage(Evento evento)
         {
             this.evento = evento;
@@ -101,13 +103,17 @@ namespace Techo_App
         public async Task GetFacebookProfileAsync(string accessToken)
         {
             var requestUrl = "https://graph.facebook.com/v2.9/me/"
-                + "?fields=name,picture,cover,age_range,devices,email,gender,is_verified"
+                + "?fields=first_name,last_name,picture,age_range,email,gender,is_verified"
                 + "&access_token=" + accessToken;
             var httpClient = new HttpClient();
-            var userJson = await httpClient.GetStringAsync(requestUrl);
-
-            Navigation.InsertPageBefore(new DetalleEventoPage(evento), this);
-            await Navigation.PopAsync();
+            var jsonFace = await httpClient.GetStringAsync(requestUrl);
+            usuariosService = new UsuariosService();
+            var resultado = await usuariosService.PostUsuarioFaceAsync(jsonFace);
+            if(resultado == "added" || resultado == "logged")
+            {
+                Navigation.InsertPageBefore(new DetalleEventoPage(evento), this);
+                await Navigation.PopAsync();
+            }
         }
         private async void btnCorreo_Clicked(object sender, EventArgs e)
         {

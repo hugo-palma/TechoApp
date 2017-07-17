@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Techo_App.Views.EventosPage" 
              xmlns:local="clr-namespace:Techo_App;assembly=Techo_App"
-             Icon="events.png">
+             Icon="events.png"
+             Title="Eventos">
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="EventosListView" ItemsSource="{Binding ListaEventos}" HasUnevenRows="True" >

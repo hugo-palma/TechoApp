@@ -42,7 +42,7 @@ namespace Techo_App.ViewModels
             get{
                 return new Command(async () =>
                     {
-                        if(identidad.email == null || identidad.password == null)
+                        if(identidad.correo == null || identidad.password == null)
                         {
                             mensaje = "Ingrese sus datos";
                         }
