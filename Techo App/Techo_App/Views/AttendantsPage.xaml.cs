@@ -13,8 +13,7 @@ namespace Techo_App.Views
         public AttendantsPage(Evento evento)
         {
             InitializeComponent();
-            
-            AttendantsViewModel attendantsViewModel = new AttendantsViewModel(Navigation, evento, this);
+            AttendantsViewModel attendantsViewModel = new AttendantsViewModel(Navigation, evento);
             BindingContext = attendantsViewModel;
         }
     }

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using Techo_App.Models;
 using Techo_App.Services;
 using System.Threading.Tasks;
+using Techo_App.Views;
 
 namespace Techo_App.ViewModels
 {
@@ -129,10 +130,17 @@ namespace Techo_App.ViewModels
                 listView.ItemsSource = usuariosOC;
                 listView.IsPullToRefreshEnabled = true;
                 listView.SetBinding(ListView.RefreshCommandProperty, new Binding("RefreshCommand"));
+                listView.ItemTapped += ListView_ItemTapped;
                 stackLayout.Children.Add(listView);
                 IsBusy = false;
             }
         }
+
+        private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            Navigation.PushAsync(new MensajePage());
+        }
+
         async void RefreshListView()
         {
             //IsBusy = true;
@@ -167,7 +175,7 @@ namespace Techo_App.ViewModels
             get { return _refreshCommand; }
         }
         
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

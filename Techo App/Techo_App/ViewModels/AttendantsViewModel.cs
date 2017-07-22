@@ -10,6 +10,7 @@ using Techo_App.Services;
 using Techo_App.Models;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Techo_App.Services;
 
 namespace Techo_App.ViewModels
 {
@@ -17,13 +18,17 @@ namespace Techo_App.ViewModels
     {
         private INavigation Navigation;
         private Evento evento;
-        public ObservableCollection<Voluntario> usuarios { get; set; }
-        private ContentPage content;
-        public AttendantsViewModel(INavigation Navigation, Evento evento, ContentPage content)
+        private ObservableCollection<Voluntario> _voluntariosCollection;
+        public ObservableCollection<Voluntario> voluntariosCollection {
+            get { return _voluntariosCollection; }
+            set {
+                _voluntariosCollection = value;
+                OnPropertyChanged();
+            } }
+        public AttendantsViewModel(INavigation Navigation, Evento evento)
         {
             this.Navigation = Navigation;
             this.evento = evento;
-            this.content = content;
             InitializeDataAsync();
         }
         private SesionService sesionService;
@@ -31,17 +36,16 @@ namespace Techo_App.ViewModels
         private async Task InitializeDataAsync()
         {
             sesionService = new SesionService();
-
             friendsService = new FriendsService();
             int idUsuario = await sesionService.GetSesionIdUserDbAsync();
             var listaTemp = await friendsService.GetUsersByEventAsync(idUsuario, evento.idEventos);
 
-            usuarios = new ObservableCollection<Voluntario>();
+            voluntariosCollection = new ObservableCollection<Voluntario>();
             ListView listView = new ListView();
-            listView.RowHeight = 130;
+            /*listView.RowHeight = 130;
             ListViewBehaviorNoSelected lBNS = new ListViewBehaviorNoSelected();
             listView.Behaviors.Add(lBNS);
-            listView.ItemTemplate = new DataTemplate(typeof(CustomAttendantsCell));
+            listView.ItemTemplate = new DataTemplate(typeof(CustomAttendantsCell));*/
             foreach (var voluntario in listaTemp)
             {
                 if(voluntario.amigos == 0)
@@ -72,11 +76,8 @@ namespace Techo_App.ViewModels
                         voluntario.foto = "http://www.palmapplicationsv.com/techoapp/public/" + voluntario.foto;
                     }
                 }
-                usuarios.Add(voluntario);
+                voluntariosCollection.Add(voluntario);
             }
-            listView.ItemsSource = usuarios;
-            listView.IsPullToRefreshEnabled = true;
-            content.Content = listView;
 
         }
 
@@ -84,10 +85,23 @@ namespace Techo_App.ViewModels
         {
             get
             {
-                return new Command(async (usuario) =>
+                return new Command(async (voluntario) =>
                 {
-                    var eventoSeleccionado = usuario as Usuario;
-                    
+                    var voluntarioSeleccionado = voluntario as Voluntario;
+                    Debug.WriteLine(voluntarioSeleccionado.nombre);
+                    if(voluntarioSeleccionado.amigos == 2)
+                    {
+                        friendsService = new FriendsService();
+                        var result = (string) await friendsService.PostFrienshipRequest(await sesionService.GetSesionIdUserDbAsync(), voluntarioSeleccionado.idUsuarios);
+                        if (result == "successful")
+                        {
+                            int numero = voluntariosCollection.IndexOf(voluntarioSeleccionado);
+                            voluntarioSeleccionado.textoBoton = "ya";
+                            voluntariosCollection[numero] = voluntarioSeleccionado;
+                            OnPropertyChanged();
+                        }
+                    }
+                   
                 });
             }
         }
@@ -99,56 +113,5 @@ namespace Techo_App.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-    public class CustomAttendantsCell : ViewCell
-    {
-        public CustomAttendantsCell()
-        {
-            var tempLabel = new Label();
-            var imagenPerfil = new Image();
-            var nombreLabel = new Label();
-            var apellidoLabel = new Label();
-            var buttonAgregar = new Button();
-            var verticaLayout = new StackLayout();
-            var completoVerticalLayout = new StackLayout();
-            var completoHorizontalLayout = new StackLayout();
-            var horizontalLayout = new StackLayout();
-            var loader = new ActivityIndicator();
-
-            
-            //asignando bindings
-            nombreLabel.SetBinding(Label.TextProperty, new Binding("nombre"));
-            apellidoLabel.SetBinding(Label.TextProperty, new Binding("apellido"));
-            imagenPerfil.SetBinding(Image.SourceProperty, "foto");
-            buttonAgregar.SetBinding(Button.TextProperty, "textoBoton");
-            loader.SetBinding(ActivityIndicator.BindingContextProperty, "foto");
-            loader.SetBinding(ActivityIndicator.IsRunningProperty, "IsLoading");
-
-            //asignando propiedas de diseño
-            completoHorizontalLayout.BackgroundColor = Color.FromHex("025d91");
-            horizontalLayout.Orientation = StackOrientation.Horizontal;
-            horizontalLayout.HorizontalOptions = LayoutOptions.FillAndExpand;
-            completoHorizontalLayout.Orientation = StackOrientation.Horizontal;
-            completoHorizontalLayout.HorizontalOptions = LayoutOptions.Fill;
-            buttonAgregar.BackgroundColor = Color.FromHex("3d84f7");
-            verticaLayout.HorizontalOptions = LayoutOptions.Center;
-            imagenPerfil.HorizontalOptions = LayoutOptions.Start;
-            imagenPerfil.WidthRequest = 100;
-            imagenPerfil.HeightRequest = 100;
-            nombreLabel.FontSize = 24;
-            nombreLabel.TextColor = Color.White;
-            apellidoLabel.FontSize = 24;
-            apellidoLabel.TextColor = Color.White;
-            //agregando hijos a las jerarquias de vistas
-
-            
-            horizontalLayout.Children.Add(nombreLabel);
-            horizontalLayout.Children.Add(apellidoLabel);
-            verticaLayout.Children.Add(horizontalLayout);
-            verticaLayout.Children.Add(buttonAgregar);
-            completoHorizontalLayout.Children.Add(imagenPerfil);
-            completoHorizontalLayout.Children.Add(verticaLayout);
-            completoVerticalLayout.Children.Add(completoHorizontalLayout);
-            View = completoVerticalLayout;
-        }
-    }
+    
 }

@@ -15,22 +15,12 @@ namespace Techo_App.ViewModels
         public bool logeado = false;
         private SesionService sesionService = new SesionService();
         private UsuariosEventosService usuariosEventosService;
-        private string _textoBtn;
         public EventosViewModel(INavigation Navigation)
         {
             this.Navigation = Navigation;
-            
-            textoBtn = "participar";
             InitializeDataAsync();
         }
-        public string textoBtn
-        {
-            get { return _textoBtn; }
-            set {
-                _textoBtn = value;
-                OnPropertyChanged();
-                    }
-        }
+        
         private List<Evento> _listaEventos;
         public List<Evento> ListaEventos
         {
@@ -59,14 +49,24 @@ namespace Techo_App.ViewModels
                 usuariosEventosService = new UsuariosEventosService();
                 int idUsuario = await GetIdUsuario();
                 listaTemp = await usuariosEventosService.GetEventsByAssistanceAsync(idUsuario);
+                foreach(var evento in listaTemp)
+                {
+                    if (evento.registrado == 1)
+                        evento.textoBoton = "Ver";
+                    else
+                        evento.textoBoton = "Participar";
+                }
             }
             else
             {
                 var eventosServices = new EventosService();
                 listaTemp = await eventosServices.GetEventosAsync();
+                foreach (var evento in listaTemp)
+                {
+                    evento.textoBoton = "Ver";
+                }
             }
             ListaEventos = listaTemp;
-            textoBtn = "participar";
             //select from usuario
         }
         public Command EventoPickedCommand
@@ -82,7 +82,14 @@ namespace Techo_App.ViewModels
                         UsuariosEventos usuarioEvento = new UsuariosEventos();
                         usuarioEvento.idEvento = eventoSeleccionado.idEventos;
                         usuarioEvento.idUsuario = await GetIdUsuario();
-                        var resultado = await usuariosEventosService.setUsuarioEvento(usuarioEvento);
+                        if(eventoSeleccionado.registrado == 0)
+                        {
+                            var resultado = await usuariosEventosService.setUsuarioEvento(usuarioEvento);
+                            if(resultado == "successful")
+                            {
+
+                            }
+                        }
                         await Navigation.PushAsync(new DetalleEventoPage(eventoSeleccionado));
                     }
                     else

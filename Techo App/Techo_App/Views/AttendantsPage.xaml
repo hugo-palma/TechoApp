@@ -2,12 +2,37 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Techo_App.Views.AttendantsPage"
-             xmlns:local="clr-namespace:Techo_App;assembly=Techo_App"
-             x:Name="contentpage"
+             xmlns:local="clr-namespace:Techo_App.ViewModels;assembly=Techo_App"
+             xmlns:plugin="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:root="clr-namespace:Techo_App;assembly=Techo_App"
+             x:Name="this"
              Title="Asistencia">
     <ContentPage.Content>
         <StackLayout>
-            
+            <ListView x:Name="listV" HasUnevenRows="True" IsPullToRefreshEnabled="True" ItemsSource="{Binding voluntariosCollection}" >
+                <ListView.Behaviors>
+                    <root:ListViewBehaviorNoSelected/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout x:Name="completoVerticalLayout" Orientation="Vertical" HeightRequest="100" Padding="10, 0 ,0 ,0">
+                                <StackLayout x:Name="completoHorizontalLayout" HorizontalOptions="Fill" Orientation="Horizontal">
+                                    <plugin:CircleImage Source="{Binding foto}" HorizontalOptions="Center" Aspect="AspectFill" WidthRequest="80" HeightRequest="80">
+                                    </plugin:CircleImage>
+                                    <StackLayout x:Name="VerticalLayout" HorizontalOptions="End" Padding="20,0,0,0" Orientation="Vertical">
+                                        <StackLayout x:Name="HorizontalLayout" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                            <Label Text="{Binding nombre}" x:Name="lblNombre" FontSize="24" TextColor="#025d91"/>
+                                            <Label Text="{Binding apellido}" FontSize="24" TextColor="#025d91"/>
+                                        </StackLayout>
+                                        <Button Text="{Binding textoBoton}" Command="{Binding BindingContext.UsuarioPickedCommand, Source={x:Reference this} }" HorizontalOptions="FillAndExpand" CommandParameter="{Binding Source={x:Reference lblNombre}, Path=BindingContext}" BackgroundColor="#0092DD" TextColor="White"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

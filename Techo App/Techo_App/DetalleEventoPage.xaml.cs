@@ -34,7 +34,7 @@ namespace Techo_App
                 _checklistImg.Opacity = .5;
                 await Task.Delay(200);
                 _checklistImg.Opacity = 1;
-                await Navigation.PushAsync(new ChecklistPage());
+                await Navigation.PushAsync(new ChecklistPage(evento));
             };
             //creando gesture para email
             var emailTapGestureRecognizer = new TapGestureRecognizer();

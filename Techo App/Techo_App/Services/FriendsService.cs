@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Techo_App.Models;
 using Techo_App.RestClient;
@@ -19,5 +21,20 @@ namespace Techo_App.Services
             var listaAmigos = await restClient.GetAsync();
             return listaAmigos;
         }
+        public async Task<Object> PostFrienshipRequest(int idUsuario, int idAmigo)
+        {
+            SolicitudAmistad solicitud = new SolicitudAmistad();
+            RestClient<SolicitudAmistad> restClient = new RestClient<SolicitudAmistad>("friendshipRequest");
+            solicitud.idUsuarios = idUsuario;
+            solicitud.idAmigo = idAmigo;
+            string jsonResult = await restClient.PostAsync(solicitud);
+            string status = (string)JObject.Parse(jsonResult)["status"];
+            if(status == "requested")
+            {
+                return "successful";
+            }
+            return "unsuccessful";
+        }
+        
     }
 }

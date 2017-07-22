@@ -4,19 +4,22 @@
              x:Class="Techo_App.ChecklistPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <StackLayout x:Name="sl1" Orientation="Horizontal">
-                <Label x:Name="label1" Text="Bloqueador solar" FontSize="24" HorizontalOptions="Start" />
-                <Switch x:Name="switch1" Toggled="switch1_Toggled" HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout x:Name="sl2" Orientation="Horizontal">
-
-                <Label x:Name="label2" HorizontalOptions="Start" Text="Sleeping Bag" FontSize="24" />
-                <Switch x:Name="switch2" Toggled="switch2_Toggled" HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout x:Name="sl3" Orientation="Horizontal">
-                <Label x:Name="label3" HorizontalOptions="Start" Text="Botiquín de primeros auxilios" FontSize="24" />
-                <Switch x:Name="switch3" HorizontalOptions="EndAndExpand" Toggled="switch3_Toggled"/>
-            </StackLayout>
+            <Label Text="Articulos que necesitas llevar al evento"/>
+            <ListView x:Name="ChecklistListView" 
+                ItemsSource="{Binding coleccionCheck}"
+                HasUnevenRows="True"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label x:Name="label1" Text="{Binding nombre}" FontSize="24" HorizontalOptions="Start"/>
+                                <Switch x:Name="switch1" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Button x:Name="btnFacebook" IsVisible="False" BackgroundColor="White" Text="Compartir" Image="facebook.png"></Button>
         </StackLayout>
     </ContentPage.Content>

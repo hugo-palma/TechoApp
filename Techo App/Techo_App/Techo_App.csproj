@@ -42,23 +42,35 @@
       <DependentUpon>ChecklistPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\TextToColorConverter.cs" />
+    <Compile Include="CustomCells\IncomingViewCell.xaml.cs">
+      <DependentUpon>IncomingViewCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomCells\OutgoingViewCell.xaml.cs">
+      <DependentUpon>OutgoingViewCell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\AsyncLock.cs" />
     <Compile Include="Helpers\AsyncSemaphore.cs" />
     <Compile Include="ISQLite.cs" />
+    <Compile Include="Models\Check.cs" />
     <Compile Include="Models\Identidad.cs" />
+    <Compile Include="Models\Mensaje.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Sesion.cs" />
     <Compile Include="Models\SolicitudAmistad.cs" />
     <Compile Include="Models\UsuariosEventos.cs" />
     <Compile Include="Models\Voluntario.cs" />
+    <Compile Include="MyDataTemplateSelector.cs" />
+    <Compile Include="Services\ChecklistServices.cs" />
     <Compile Include="Services\FriendsService.cs" />
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\SesionService.cs" />
     <Compile Include="Services\UsuariosEventosService.cs" />
     <Compile Include="Services\UsuariosService.cs" />
     <Compile Include="ViewModels\AttendantsViewModel.cs" />
+    <Compile Include="ViewModels\ChecklistViewModel.cs" />
     <Compile Include="ViewModels\ConversacionesViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\OpcionesViewModel.cs" />
     <Compile Include="ViewModels\UsuariosViewModel.cs" />
     <Compile Include="Views\AttendantsPage.xaml.cs">
@@ -100,8 +112,14 @@
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MensajePage.xaml.cs">
+      <DependentUpon>MensajePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OpcionesPage.xaml.cs">
       <DependentUpon>OpcionesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsuarioPage.xaml.cs">
+      <DependentUpon>UsuarioPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +264,30 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ConversacionesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\MensajePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomCells\IncomingViewCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomCells\OutgoingViewCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\UsuarioPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
