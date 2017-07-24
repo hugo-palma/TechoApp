@@ -27,8 +27,8 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0" HeightRequest="30" Placeholder="Mensaje" Text=""></Entry>
-            <Button Grid.Column="1" Text="Enviar" Command=""></Button>
+            <Entry Grid.Column="0" HeightRequest="30" Placeholder="Mensaje" Text="{Binding OutGoingText}"></Entry>
+            <Button Grid.Column="1" Text="Enviar" Command="{Binding enviarCommand}"></Button>
         </Grid>
 
     </RelativeLayout>

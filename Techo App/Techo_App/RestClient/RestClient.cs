@@ -31,6 +31,12 @@ namespace Techo_App.RestClient
                 case "friendshipRequest":
                     WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/friends/request";
                     break;
+                case "nuevaConversacion":
+                    WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/chatrooms/add";
+                    break;
+                case "nuevoMensaje":
+                    WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/message";
+                    break;
             }
             
         }
@@ -46,6 +52,9 @@ namespace Techo_App.RestClient
                     break;
                 case "checklist":
                     WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/checklist/" + opcional;
+                    break;
+                case "conversaciones":
+                    WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/chatrooms/" + opcional;
                     break;
             }
         }

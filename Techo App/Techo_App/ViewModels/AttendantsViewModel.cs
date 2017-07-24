@@ -10,8 +10,6 @@ using Techo_App.Services;
 using Techo_App.Models;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using Techo_App.Services;
-
 namespace Techo_App.ViewModels
 {
     class AttendantsViewModel : INotifyPropertyChanged

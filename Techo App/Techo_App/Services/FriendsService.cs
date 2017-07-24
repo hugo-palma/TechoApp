@@ -35,6 +35,23 @@ namespace Techo_App.Services
             }
             return "unsuccessful";
         }
-        
+        public async Task<Object> PostNuevaConversacionAsync(int sesionId, int[] friendoId, string nombre)
+        {
+            Conversacion conversacion = new Conversacion();
+            RestClient<Conversacion> restClient = new RestClient<Conversacion>("nuevaConversacion");
+            conversacion.idUsuarios = sesionId;
+            conversacion.idFriends = friendoId;
+            conversacion.nombre = nombre;
+            string jsonResult = await restClient.PostAsync(conversacion);
+            string status = (string)JObject.Parse(jsonResult)["status"];
+            if (status == "added")
+            {
+                string idGrupos = (string)JObject.Parse(jsonResult)["options"];
+                return idGrupos;
+            }
+            return "unsuccessful";
+
+        }
+
     }
 }

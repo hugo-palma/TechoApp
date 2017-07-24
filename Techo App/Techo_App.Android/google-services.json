@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "241880227899",
+    "firebase_url": "https://techo-app.firebaseio.com",
+    "project_id": "techo-app",
+    "storage_bucket": "techo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241880227899:android:57aba120d0d3e2a6",
+        "android_client_info": {
+          "package_name": "sv.techo.techoApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241880227899-nu7hps8lnqtu38dka6s2l7db38kmpd39.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sv.techo.techoApp",
+            "certificate_hash": "d730ef1a3582c4592b7532b45e837fca147323e3"
+          }
+        },
+        {
+          "client_id": "241880227899-9casa4n3e25thgku3v1m4fqgj8hp3h0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlNjsekB8cLfOlK_Lz2Rzb8oJpgxcnxvE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241880227899-9casa4n3e25thgku3v1m4fqgj8hp3h0q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

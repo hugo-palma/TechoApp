@@ -7,8 +7,8 @@ namespace Techo_App
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new MenuPage());
             CreateSesionTable();
+            MainPage = new NavigationPage(new MenuPage());
             //MainPage = new Techo_App.MainPage();
         }
         public void CreateSesionTable()

@@ -13,7 +13,7 @@ using Android.Widget;
 namespace Techo_App.Droid
 {
     [Activity(Theme = "@style/Theme.Splash",
-        MainLauncher = true,
+        MainLauncher = false,
         NoHistory = true
         )]
     public class SlpashScreenActivity : Activity

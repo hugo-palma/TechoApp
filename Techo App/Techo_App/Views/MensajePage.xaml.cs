@@ -14,10 +14,11 @@ namespace Techo_App.Views
     public partial class MensajePage : ContentPage
     {
         MessageViewModel messageViewModel;
-        public MensajePage()
+        public MensajePage(int idGrupo, string nombre)
         {
             InitializeComponent();
-            messageViewModel = new MessageViewModel(this);
+            this.Title = nombre;
+            messageViewModel = new MessageViewModel(this, idGrupo);
             BindingContext = messageViewModel;
         }
     }

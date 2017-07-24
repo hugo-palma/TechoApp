@@ -16,7 +16,7 @@ namespace Techo_App.ViewModels
         INavigation Navigation;
         private ContentPage _contentpage;
         private SesionService sesionService;
-        private FriendsService friendsService;
+        private ConversacionesService conversacionesService;
         private ListView _listView;
         public ListView listView
         {
@@ -27,16 +27,16 @@ namespace Techo_App.ViewModels
                 OnPropertyChanged(nameof(listView));
             }
         }
-        private ObservableCollection<Usuario> _usuariosOC;
-        private ObservableCollection<Usuario> usuariosOC
+        private ObservableCollection<Grupo> _gruposOC;
+        private ObservableCollection<Grupo> gruposOC
         {
             get
             {
-                return _usuariosOC;
+                return _gruposOC;
             }
             set
             {
-                _usuariosOC = value;
+                _gruposOC = value;
                 OnPropertyChanged();
             }
         }
@@ -84,7 +84,7 @@ namespace Techo_App.ViewModels
             _listView = new ListView();
             _stackLayout = new StackLayout();
             _refreshCommand = new Command(RefreshListView);
-            _usuariosOC = new ObservableCollection<Usuario>();
+            _gruposOC = new ObservableCollection<Grupo>();
             
             InitializeDataAsync();
             
@@ -92,7 +92,7 @@ namespace Techo_App.ViewModels
         private async Task InitializeDataAsync()
         {
             sesionService = new SesionService();
-            friendsService = new FriendsService();
+            conversacionesService = new ConversacionesService();
             int idUsuario = await sesionService.GetSesionIdUserDbAsync();
             
             if(idUsuario != 0)
@@ -103,14 +103,14 @@ namespace Techo_App.ViewModels
                 stackLayout.Children.Add(ai);
                 IsBusy = true;
                 contentpage.Content = stackLayout;
-                var listaTemp = await friendsService.GetFriendsById(idUsuario);
-                usuariosOC = new ObservableCollection<Usuario>();
+                var listaTemp = await conversacionesService.GetConversacionesAsync(idUsuario);
+                gruposOC = new ObservableCollection<Grupo>();
 
                 listView.RowHeight = 75;
                 listView.ItemTemplate = new DataTemplate(typeof(CustomFriendsCell));
                 foreach (var usuario in listaTemp)
                 {
-                    if (usuario.foto == null)
+                    /*if (usuario.foto == null)
                     {
                         usuario.foto = "photo.png";
                     }
@@ -124,10 +124,10 @@ namespace Techo_App.ViewModels
                         {
                             usuario.foto = "http://www.palmapplicationsv.com/techoapp/public/" + usuario.foto;
                         }
-                    }
-                    usuariosOC.Add(usuario);
+                    }*/
+                    gruposOC.Add(usuario);
                 }
-                listView.ItemsSource = usuariosOC;
+                listView.ItemsSource = gruposOC;
                 listView.IsPullToRefreshEnabled = true;
                 listView.SetBinding(ListView.RefreshCommandProperty, new Binding("RefreshCommand"));
                 listView.ItemTapped += ListView_ItemTapped;
@@ -138,34 +138,17 @@ namespace Techo_App.ViewModels
 
         private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            Navigation.PushAsync(new MensajePage());
+            //falta implementar
+            //Navigation.PushAsync(new MensajePage());
         }
 
         async void RefreshListView()
         {
             //IsBusy = true;
             sesionService = new SesionService();
-            friendsService = new FriendsService();
+            conversacionesService = new ConversacionesService();
             int idUsuario = await sesionService.GetSesionIdUserDbAsync();
-            var listaTemp = await friendsService.GetFriendsById(idUsuario);
-            foreach (var usuario in listaTemp)
-            {
-                if (usuario.foto == null)
-                {
-                    usuario.foto = "photo.png";
-                }
-                else
-                {
-                    if (usuario.foto.Contains("https:"))
-                    {
-
-                    }
-                    else
-                    {
-                        usuario.foto = "http://www.palmapplicationsv.com/techoapp/public/" + usuario.foto;
-                    }
-                }
-            }
+            var listaTemp = await conversacionesService.GetConversacionesAsync(idUsuario);
             listView.IsRefreshing = false;
             //IsBusy = false;
         }
@@ -174,7 +157,16 @@ namespace Techo_App.ViewModels
         {
             get { return _refreshCommand; }
         }
-        
+        public Command nuevoCommand
+        {
+            get {
+                return new Command(async () =>
+                {
+                    await Navigation.PushAsync(new ContactosPage());
+                });
+
+            }
+        }
         
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -194,14 +186,11 @@ namespace Techo_App.ViewModels
             var completoVerticalLayout = new StackLayout();
             var completoHorizontalLayout = new StackLayout();
             var horizontalLayout = new StackLayout();
-
-
+            
             //asignando bindings
             nombreLabel.SetBinding(Label.TextProperty, new Binding("nombre"));
             apellidoLabel.SetBinding(Label.TextProperty, new Binding("apellido"));
             imagenPerfil.SetBinding(Image.SourceProperty, "foto");
-            
-            
 
             //asignando propiedas de diseño
             horizontalLayout.Orientation = StackOrientation.Horizontal;
@@ -217,7 +206,6 @@ namespace Techo_App.ViewModels
             apellidoLabel.FontSize = 24;
             apellidoLabel.TextColor = Color.Blue;
             //agregando hijos a las jerarquias de vistas
-
 
             horizontalLayout.Children.Add(nombreLabel);
             horizontalLayout.Children.Add(apellidoLabel);
