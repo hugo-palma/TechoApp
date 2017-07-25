@@ -36,6 +36,9 @@
             </OnPlatform>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Nueva Conversacion" Command="{Binding AddLocationCommand}" Icon="addloca.png"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>

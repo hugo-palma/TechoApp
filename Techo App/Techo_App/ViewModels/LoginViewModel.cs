@@ -9,11 +9,14 @@ namespace Techo_App.ViewModels
     public class LoginViewModel : INotifyPropertyChanged
     {
         private Evento evento;
-        public LoginViewModel(Evento evento)
+        private RegisterPage registerPage;
+        private INavigation Navigation;
+        public LoginViewModel(Evento evento, INavigation Navigation, RegisterPage registerPage)
         {
             this.evento = evento;
+            this.registerPage = registerPage;
+            this.Navigation = Navigation;
         }
-        public INavigation Navigation;
         private string _mensaje;
         public string mensaje
         {
@@ -53,7 +56,8 @@ namespace Techo_App.ViewModels
                             if (result.ToString() == "successful")
                             {
                                 //credenciales verificadas
-                                await Navigation.PushAsync(new DetalleEventoPage(evento));
+                                registerPage.Navigation.InsertPageBefore(new DetalleEventoPage(evento), registerPage);
+                                await Navigation.PopToRootAsync();
                             }
                             else if (result.ToString() == "unsuccessful")
                             {

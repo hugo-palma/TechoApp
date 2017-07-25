@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Techo_App.Models;
 using Techo_App.Services;
-
+using Techo_App.Views;
 using Xamarin.Forms;
 
 namespace Techo_App.ViewModels
@@ -63,7 +63,7 @@ namespace Techo_App.ViewModels
                 listaTemp = await eventosServices.GetEventosAsync();
                 foreach (var evento in listaTemp)
                 {
-                    evento.textoBoton = "Ver";
+                    evento.textoBoton = "Participar";
                 }
             }
             ListaEventos = listaTemp;
@@ -97,6 +97,16 @@ namespace Techo_App.ViewModels
                         RegisterPage rp = new RegisterPage(eventoSeleccionado);
                         await Navigation.PushAsync(rp);
                     }
+                });
+            }
+        }
+        public Command AddLocationCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await Navigation.PushAsync(new AddLocationPage());
                 });
             }
         }

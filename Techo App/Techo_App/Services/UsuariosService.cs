@@ -52,6 +52,9 @@ namespace Techo_App.Services
                     sesion.role = jsonUsuario["idRol"].Value<int>();
                 }
                 SesionService sesionService = new SesionService();
+                var fb = DependencyService.Get<IFirebase>().getFirebaseUserId();
+                Debug.WriteLine(fb + "es el id de firebase");
+                var resultfireb = await sesionService.UpdateFirebaseIdToken(sesion.idUsuarios, (string)fb);
                 await sesionService.SetSesionDbAsync(sesion);
                 //no esta
                 return "unsuccessful";
@@ -121,6 +124,9 @@ namespace Techo_App.Services
                 sesion.role = jsonUsuario["idRol"].Value<int>();
             }
             SesionService sesionService = new SesionService();
+            var fb = DependencyService.Get<IFirebase>().getFirebaseUserId();
+            Debug.WriteLine(fb + "es el id de firebase");
+            var resultfireb = await sesionService.UpdateFirebaseIdToken(sesion.idUsuarios, (string)fb);
             await sesionService.SetSesionDbAsync(sesion);
             return JsonConvert.DeserializeObject<Sesion>(json);
         }

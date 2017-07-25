@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using Techo_App.Models;
+using System.Diagnostics;
 namespace Techo_App
 {
     public partial class App : Application

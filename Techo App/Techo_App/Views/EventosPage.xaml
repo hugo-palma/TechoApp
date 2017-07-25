@@ -6,6 +6,9 @@
              x:Name="this"
              Icon="events.png"
              Title="Eventos">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Nueva Conversacion" Command="{Binding AddLocationCommand}" Icon="addloca.png"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="EventosListView" ItemsSource="{Binding ListaEventos}" HasUnevenRows="True" SeparatorVisibility="None">

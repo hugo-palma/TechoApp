@@ -68,6 +68,19 @@ namespace Techo_App
             _emailImg.GestureRecognizers.Add(emailTapGestureRecognizer);
             _amigosImg.GestureRecognizers.Add(amigosTapGestureRecognizer);
             _llamarImg.GestureRecognizers.Add(llamarTapGestureRecognizer);
+
+            
+
+        }
+        public Command AddLocationCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await Navigation.PushAsync(new AddLocationPage());
+                });
+            }
         }
     }
 }

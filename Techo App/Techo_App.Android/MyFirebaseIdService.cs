@@ -20,7 +20,18 @@ namespace Techo_App.Droid
         public override void OnTokenRefresh()
         {
             base.OnTokenRefresh();
-            Android.Util.Log.Debug("Refreshed Token:", FirebaseInstanceId.Instance.Token);
+            var instanceId = FirebaseInstanceId.Instance;
+            var regid = FirebaseInstanceId.Instance.Token;
+            if (regid == null)
+            {
+                regid = instanceId.GetToken(GetString(Resource.String.gcm_defaultSenderId), Firebase.Messaging.FirebaseMessaging.InstanceIdScope);
+
+                Android.Util.Log.Debug("Refreshed Token:",regid);
+            }
+            else
+            {
+                Android.Util.Log.Debug("Refreshed Token:", FirebaseInstanceId.Instance.Token);
+            }
         }
     }
 }

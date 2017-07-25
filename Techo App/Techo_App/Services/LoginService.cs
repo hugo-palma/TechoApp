@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Techo_App.Models;
 using Techo_App.RestClient;
+using Xamarin.Forms;
+
 namespace Techo_App.Services
 {
     public class LoginService
@@ -39,7 +42,10 @@ namespace Techo_App.Services
                 {
                     sesion.role = jsonUsuario["idRol"].Value<int>();
                 }
+                var fb = DependencyService.Get<IFirebase>().getFirebaseUserId();
+                Debug.WriteLine(fb + "es el id de firebase");
                 SesionService sesionService = new SesionService();
+                var resultfb = await sesionService.UpdateFirebaseIdToken(sesion.idUsuarios, (string)fb);
                 await sesionService.SetSesionDbAsync(sesion);
                 return "successful";
             }
@@ -51,3 +57,4 @@ namespace Techo_App.Services
         }
     }
 }
+ 

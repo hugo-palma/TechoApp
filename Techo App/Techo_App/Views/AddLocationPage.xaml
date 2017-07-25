@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Techo_App.Views.AddLocationPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Selecciona  el lugar donde te encuentras" FontSize="24" />
+            <Picker x:Name="MainPicker" SelectedIndexChanged="MainPicker_SelectedIndexChanged"/>
+            <Picker x:Name="subPicker" />
+            <Button Text="Enviar" Clicked="Button_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

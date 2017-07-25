@@ -7,6 +7,8 @@ using Xamarin.Forms;
 using Techo_App.Services;
 using Techo_App.Helpers;
 using Techo_App.Models;
+using Techo_App.RestClient;
+using Newtonsoft.Json.Linq;
 
 [assembly: Dependency(typeof(SesionService))]
 namespace Techo_App.Services
@@ -62,6 +64,20 @@ namespace Techo_App.Services
             {
                 await Database.DeleteAllAsync<Sesion>();
             }
+        }
+        public async Task<string> UpdateFirebaseIdToken(int idUsuarios, string firebaseUserId)
+        {
+            RestClient<FirebaseToken> restClient = new RestClient<FirebaseToken>("enviarToken");
+            FirebaseToken firebaseToken = new FirebaseToken();
+            firebaseToken.idUser = idUsuarios;
+            firebaseToken.idFcm = firebaseUserId;
+            string jsonResult = await restClient.PostAsync(firebaseToken);
+            var status = JObject.Parse(jsonResult)["status"];
+            if ((string)status == "sent")
+            {
+                return "succesful";
+            }
+            return "unsuccessful";
         }
     }
 }

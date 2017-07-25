@@ -37,6 +37,9 @@ namespace Techo_App.RestClient
                 case "nuevoMensaje":
                     WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/message";
                     break;
+                case "enviarToken":
+                    WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/idfcm";
+                    break;
             }
             
         }

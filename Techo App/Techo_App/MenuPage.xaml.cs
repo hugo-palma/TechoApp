@@ -34,7 +34,7 @@ namespace Techo_App
             {
                 Title = "Principal",
                 IconSource = "icon.png",
-                TargetType = typeof(homePage)
+                TargetType = typeof(EventosPage)
             });
             masterPageItem.Add(new MasterPageItem
             {

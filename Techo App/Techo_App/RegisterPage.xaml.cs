@@ -121,7 +121,7 @@ namespace Techo_App
         }
         private async void btnIniciar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new LoginPage(evento));
+            await Navigation.PushAsync(new LoginPage(evento, this));
         }
         private async void btnCancelar_Clicked(object sender, EventArgs e)
         {

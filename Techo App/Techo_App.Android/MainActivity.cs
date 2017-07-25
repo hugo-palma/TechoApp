@@ -18,6 +18,7 @@ namespace Techo_App.Droid
     [Activity(Label = "Techo_App", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        string algo = "asd";
         const string TAG = "MainActivity";
         protected override void OnCreate(Bundle bundle)
         {

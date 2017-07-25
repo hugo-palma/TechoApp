@@ -10,12 +10,11 @@ namespace Techo_App.Views
     {
         private LoginViewModel loginViewModel;
         private Evento evento;
-        public LoginPage(Evento evento)
+        public LoginPage(Evento evento, RegisterPage registerPage)
         {
             InitializeComponent();
             this.evento = evento;
-            loginViewModel = new LoginViewModel(evento);
-            loginViewModel.Navigation = Navigation;
+            loginViewModel = new LoginViewModel(evento, Navigation, registerPage);
             BindingContext = loginViewModel;
         }
         public LoginPage()
