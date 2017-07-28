@@ -13,7 +13,6 @@ namespace Techo_App
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : MasterDetailPage
     {
-        public Image prueba;
         private SesionService sesionService;
         public ListView ListView { get { return listView; } }
         public MenuPage()
@@ -28,13 +27,18 @@ namespace Techo_App
                     new ConversacionesPage()
                 }
             };
-            
             var masterPageItem = new List<MasterPageItem>();
             masterPageItem.Add(new MasterPageItem
             {
                 Title = "Principal",
                 IconSource = "icon.png",
                 TargetType = typeof(EventosPage)
+            });
+            masterPageItem.Add(new MasterPageItem
+            {
+                Title = "Contacto",
+                IconSource = "call.png",
+                TargetType = typeof(ContactarPage)
             });
             masterPageItem.Add(new MasterPageItem
             {
@@ -48,28 +52,33 @@ namespace Techo_App
         private async Task ImprimirImagen()
         {
             sesionService = new SesionService();
-            List<Sesion> listaSesiones = await sesionService.GetSesionDbAsync();
-            if(listaSesiones.Count > 0)
+            if (await sesionService.CheckSesionDbAsync() == true)
             {
-                Sesion sesion = listaSesiones[0];
-                if (sesion != null)
+                List<Sesion> listaSesiones = await sesionService.GetSesionDbAsync();
+                if (listaSesiones.Count > 0)
                 {
-                    if(sesion.photo.Contains("https:"))
+                    Sesion sesion = listaSesiones[0];
+                    nombreUsuario.Text = sesion.firstName + " " + sesion.lastName;
+                    if (sesion.photo != null)
                     {
-                        imagenPerfil.Source = ImageSource.FromUri(new Uri(sesion.photo));
+                        if (sesion.photo.Contains("https:"))
+                        {
+                            imagenPerfil.Source = ImageSource.FromUri(new Uri(sesion.photo));
+                        }
+                        else
+                        {
+                            imagenPerfil.Source = ImageSource.FromUri(new Uri("http://www.palmapplicationsv.com/techoapp/public/" + sesion.photo));
+                        }
                     }
                     else
                     {
-                        imagenPerfil.Source = ImageSource.FromUri(new Uri("http://www.palmapplicationsv.com/techoapp/public/" + sesion.photo));
+                        imagenPerfil.Source = ImageSource.FromFile("photo.png");
                     }
-                }
-                else
-                {
-                    imagenPerfil.Source = ImageSource.FromFile("photo.png");
                 }
             }
             else
             {
+                nombreUsuario.Text = "";
                 imagenPerfil.Source = ImageSource.FromFile("photo.png");
             }
         }
@@ -78,10 +87,17 @@ namespace Techo_App
             var item = e.SelectedItem as MasterPageItem;
             if(item != null)
             {
-                if(this.GetType() != item.TargetType)
+                if(this.Detail.GetType() != item.TargetType)
                 {
-                    Page newPage = (Page)Activator.CreateInstance(item.TargetType);
-                    await Navigation.PushAsync(newPage);
+                    if(this.GetType() == typeof(EventosPage))
+                    {
+                         Detail = (Page)Activator.CreateInstance(item.TargetType);
+                    }
+                    else
+                    {
+                        Page newPage = (Page)Activator.CreateInstance(item.TargetType);
+                        await Navigation.PushAsync(newPage);
+                    }
                     ListView.SelectedItem = null;
                     IsPresented = false;
                 }

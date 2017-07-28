@@ -42,10 +42,10 @@ namespace Techo_App.Services
                 {
                     sesion.role = jsonUsuario["idRol"].Value<int>();
                 }
-                var fb = DependencyService.Get<IFirebase>().getFirebaseUserId();
-                Debug.WriteLine(fb + "es el id de firebase");
+                //var fb = DependencyService.Get<IFirebase>().getFirebaseUserId();
+                //Debug.WriteLine(fb + "es el id de firebase");
                 SesionService sesionService = new SesionService();
-                var resultfb = await sesionService.UpdateFirebaseIdToken(sesion.idUsuarios, (string)fb);
+                //var resultfb = await sesionService.UpdateFirebaseIdToken(sesion.idUsuarios, (string)fb);
                 await sesionService.SetSesionDbAsync(sesion);
                 return "successful";
             }

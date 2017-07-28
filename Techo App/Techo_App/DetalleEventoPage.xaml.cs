@@ -23,9 +23,7 @@ namespace Techo_App
             InitializeComponent();
             labelEvento.Text = evento.nombre;
             _checklistImg = this.FindByName<Image>("checklistImg");
-            _emailImg = this.FindByName<Image>("emailImg");
             _amigosImg = this.FindByName<Image>("amigosImg");
-            _llamarImg = this.FindByName<Image>("llamarImg");
 
             //creando gesture para checklist
             var checklistTapGestureRecognizer = new TapGestureRecognizer();
@@ -36,16 +34,6 @@ namespace Techo_App
                 _checklistImg.Opacity = 1;
                 await Navigation.PushAsync(new ChecklistPage(evento));
             };
-            //creando gesture para email
-            var emailTapGestureRecognizer = new TapGestureRecognizer();
-            emailTapGestureRecognizer.Tapped += async (sender, e) => {
-                DependencyService.Get<ISound>().KeyboardClick();
-                _emailImg.Opacity = .5;
-                await Task.Delay(200);
-                _emailImg.Opacity = 1;
-                Device.OpenUri(new Uri("mailto:alejandra.svendblad@techo.org"));
-                //await Navigation.PushAsync(new EventosPage());
-            };
             var amigosTapGestureRecognizer = new TapGestureRecognizer();
             amigosTapGestureRecognizer.Tapped += async (sender, e) => {
                 DependencyService.Get<ISound>().KeyboardClick();
@@ -54,33 +42,15 @@ namespace Techo_App
                 _amigosImg.Opacity = 1;
                 await Navigation.PushAsync(new AttendantsPage(evento));
             };
-            var llamarTapGestureRecognizer = new TapGestureRecognizer();
-            llamarTapGestureRecognizer.Tapped += async (sender, e) => {
-                DependencyService.Get<ISound>().KeyboardClick();
-                _llamarImg.Opacity = .5;
-                await Task.Delay(200);
-                _llamarImg.Opacity = 1;
-                Device.OpenUri(new Uri("tel:22433655"));
-                //await Navigation.PushAsync(new EventosPage());
-            };
             //Asignando el gesture a los componentes de la vista
             _checklistImg.GestureRecognizers.Add(checklistTapGestureRecognizer);
-            _emailImg.GestureRecognizers.Add(emailTapGestureRecognizer);
             _amigosImg.GestureRecognizers.Add(amigosTapGestureRecognizer);
-            _llamarImg.GestureRecognizers.Add(llamarTapGestureRecognizer);
 
-            
-
-        }
-        public Command AddLocationCommand
-        {
-            get
+            tItem.Command = new Command(async () =>
             {
-                return new Command(async () =>
-                {
-                    await Navigation.PushAsync(new AddLocationPage());
-                });
-            }
+                await Navigation.PushAsync(new AddLocationPage());
+            });
+
         }
     }
 }

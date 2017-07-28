@@ -17,8 +17,7 @@
                 <Label Text="Foto" />
                 <Image x:Name="FileImage"/>
                 <Button x:Name="btnFoto" Text="Seleccionar" BackgroundColor="White" Clicked="btnFoto_Clicked"/>
-                <Button x:Name="btnEnviar" BackgroundColor="GreenYellow" Text="Crear cuenta" Command="{Binding PostCommand}"/>
-                
+                <Button x:Name="btnEnviar" BackgroundColor="#3d84f7" Text="Crear cuenta" Command="{Binding PostCommand}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -1,26 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
-          package="sv.techo.techoApp" android:versionCode="1" android:versionName="1.0"
-          android:installLocation="internalOnly">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="sv.techo.techo" android:installLocation="internalOnly" android:versionCode="4" android:versionName="1.2">
 	<uses-sdk android:minSdkVersion="16" />
-	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<application android:label="Techo_App.Android" android:icon="@drawable/icon">
-    <receiver
-      android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver"
-      android:exported="false" />
-    <receiver
-        android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
-        android:exported="true"
-        android:permission="com.google.android.c2dm.permission.SEND">
-      <intent-filter>
-        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-        <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-        <category android:name="${applicationId}"/>
-      </intent-filter>
-    </receiver>
-  </application>
+	<application android:label="Techo">
+		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
+		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+				<category android:name="${applicationId}" />
+			</intent-filter>
+		</receiver>
+	</application>
 </manifest>

@@ -11,8 +11,8 @@ namespace Techo_App.Views
         public ConversacionesPage()
         {
             InitializeComponent();
-            conversacionesViewModel = new ConversacionesViewModel(Navigation, this);
-            BindingContext = conversacionesViewModel;
+            //conversacionesViewModel = new ConversacionesViewModel(Navigation, this);
+            //BindingContext = conversacionesViewModel;
             
         }
     }

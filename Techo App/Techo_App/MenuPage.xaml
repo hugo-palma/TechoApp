@@ -25,6 +25,7 @@
                                 WinPhone="75"/>
                         </controls:CircleImage.HeightRequest>
                     </controls:CircleImage>
+                    <Label FontSize="20" x:Name="nombreUsuario" HorizontalOptions="Center"  TextColor="Black"></Label>
                     <ListView x:Name="listView" VerticalOptions="FillAndExpand" SeparatorVisibility="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>

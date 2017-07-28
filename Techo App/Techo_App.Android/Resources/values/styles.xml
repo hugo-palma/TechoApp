@@ -4,7 +4,7 @@
   <style name="MainTheme" parent="MainTheme.Base">
   </style>
   <style name="Theme.Splash" parent="android:Theme">
-    <item name="android:windowBackground">@drawable/icon</item>
+    <item name="android:windowBackground">@drawable/screen</item>
     <item name="android:windowNoTitle">true</item>
     
   </style>

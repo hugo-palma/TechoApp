@@ -12,6 +12,7 @@ namespace Techo_App.RestClient
     {
 
         private string WebServiceUrl;
+        private string servidor = "http://www.palmapplicationsv.com/techoapp/public/api/";
         public RestClient(string opcion)
         {
             switch(opcion)
@@ -40,6 +41,10 @@ namespace Techo_App.RestClient
                 case "enviarToken":
                     WebServiceUrl = "http://www.palmapplicationsv.com/techoapp/public/api/idfcm";
                     break;
+                case "evniarLocation":
+                    WebServiceUrl = servidor + "checkin";
+                    break;
+
             }
             
         }

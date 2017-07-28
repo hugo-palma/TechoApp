@@ -67,15 +67,21 @@ namespace Techo_App.ViewModels
                     if(result.GetType() == typeof(Usuario))
                     {
                         //insertar datos en base de datos de sqlite
-                        Navigation.InsertPageBefore(new DetalleEventoPage(evento), registerPage);
+                        //Navigation.InsertPageBefore(new DetalleEventoPage(evento), registerPage);
                         await Navigation.PopToRootAsync();
                     }
                     else if(result.ToString() == "added")
                     {
                         //cambiar a eventodetail
-                        Navigation.InsertPageBefore(new DetalleEventoPage(evento), registerPage);
-                        Navigation.RemovePage(registerPage);
-                        await Navigation.PopAsync();
+                        UsuariosEventosService usuariosEventosService = new UsuariosEventosService();
+                        UsuariosEventos usuariosEventos = new UsuariosEventos();
+                        SesionService sesionService = new SesionService();
+                        var idUsuarios = await sesionService.GetSesionIdUserDbAsync();
+                        usuariosEventos.idEvento = evento.idEventos;
+                        usuariosEventos.idUsuario = idUsuarios;
+                        var resultadoUE = await usuariosEventosService.setUsuarioEvento(usuariosEventos);
+
+                        await Navigation.PushAsync(new DetalleEventoPage(evento));
                     }
                 });
             }

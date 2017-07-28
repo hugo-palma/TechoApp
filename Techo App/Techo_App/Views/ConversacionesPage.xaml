@@ -5,12 +5,10 @@
              xmlns:plugin="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              Title="Contactos"
              Icon="contacts.png">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Nueva Conversacion" Command="{Binding nuevoCommand}" Icon="add.png"></ToolbarItem>
-    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="NO TIENES NINGUNA CONVERSACION" FontSize="24"/>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+
+            <Image Source="TAUC.png"></Image>
         </StackLayout>
         
     </ContentPage.Content>

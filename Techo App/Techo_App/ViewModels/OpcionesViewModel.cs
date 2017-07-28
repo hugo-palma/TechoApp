@@ -11,11 +11,13 @@ namespace Techo_App.ViewModels
 {
     public class OpcionesViewModel
     {
+        IAccountManagerService _services;
         INavigation Navigation;
         private SesionService sesionService;
         public OpcionesViewModel(INavigation Navigation)
         {
             this.Navigation = Navigation;
+            _services = DependencyService.Get<IAccountManagerService>();
         }
         public Command CerrarSesionCommand
         {
@@ -23,6 +25,7 @@ namespace Techo_App.ViewModels
             {
                return new Command(async () =>
                {
+                   _services.EraseAll();
                    sesionService = new SesionService();
                    await sesionService.BorrarSesion();
                    await Navigation.PopAsync();

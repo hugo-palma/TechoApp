@@ -10,7 +10,7 @@
         public string password { get; set; }
         public int role { get; set; }
         public string nombreRol { get; set; }
-        public int amigos { get; set; }
+        public string amigos { get; set; }
         public string textoBoton { get; set; }
     }
 }

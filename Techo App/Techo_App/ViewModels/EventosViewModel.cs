@@ -47,6 +47,8 @@ namespace Techo_App.ViewModels
             if (await VerificarSesion() == true)
             {
                 usuariosEventosService = new UsuariosEventosService();
+                List<Sesion> sesion = new List<Sesion>();
+                sesion = await sesionService.GetSesionDbAsync();
                 int idUsuario = await GetIdUsuario();
                 listaTemp = await usuariosEventosService.GetEventsByAssistanceAsync(idUsuario);
                 foreach(var evento in listaTemp)

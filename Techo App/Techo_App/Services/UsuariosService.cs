@@ -25,6 +25,15 @@ namespace Techo_App.Services
             
             if (status == "added")
             {
+                var idUsuarios = (string)JObject.Parse(jsonResult)["options"];
+                var sesion = new Sesion();
+                sesion.idUsuarios = int.Parse(idUsuarios);
+                sesion.firstName = usuario.nombre;
+                sesion.lastName = usuario.apellido;
+                sesion.photo = usuario.foto;
+                sesion.role = usuario.idRol;
+                SesionService sesionService = new SesionService();
+                await sesionService.SetSesionDbAsync(sesion);
                 return "added";
             }
             else
@@ -52,14 +61,47 @@ namespace Techo_App.Services
                     sesion.role = jsonUsuario["idRol"].Value<int>();
                 }
                 SesionService sesionService = new SesionService();
-                var fb = DependencyService.Get<IFirebase>().getFirebaseUserId();
-                Debug.WriteLine(fb + "es el id de firebase");
-                var resultfireb = await sesionService.UpdateFirebaseIdToken(sesion.idUsuarios, (string)fb);
+                //var fb = DependencyService.Get<IFirebase>().getFirebaseUserId();
+                //Debug.WriteLine(fb + "es el id de firebase");
+                //var resultfireb = await sesionService.UpdateFirebaseIdToken(sesion.idUsuarios, (string)fb);
                 await sesionService.SetSesionDbAsync(sesion);
                 //no esta
                 return "unsuccessful";
             }
             
+        }
+        public async Task<string> PostUsuarioTwitterAsync(string jsonTwitter)
+        {
+            Usuario usuarioTwitter = new Usuario();
+
+            var id = (string)JObject.Parse(jsonTwitter)["id"];
+
+            usuarioTwitter.nombre = (string)JObject.Parse(jsonTwitter)["name"];
+            usuarioTwitter.idRol = 1;
+            usuarioTwitter.foto = (string)JObject.Parse(jsonTwitter)["profile_image_url_https"];
+            usuarioTwitter.password = (string)JObject.Parse(jsonTwitter)["id"];
+            usuarioTwitter.correo = (string)JObject.Parse(jsonTwitter)["id"];
+            RestClient<Usuario> restClient = new RestClient<Usuario>("users");
+            var jsonResult = await restClient.PostAsync(usuarioTwitter);
+            //api/friends/{id}
+            if (jsonResult.Contains("added"))
+            {
+                var idUsuarios = (string)JObject.Parse(jsonResult)["options"];
+                var sesion = new Sesion();
+                sesion.idUsuarios = int.Parse(idUsuarios);
+                sesion.firstName = usuarioTwitter.nombre;
+                sesion.lastName = usuarioTwitter.apellido;
+                sesion.photo = usuarioTwitter.foto;
+                sesion.role = usuarioTwitter.idRol;
+                SesionService sesionService = new SesionService();
+                await sesionService.SetSesionDbAsync(sesion);
+                return "added";
+            }
+            else
+            {
+                await ConvertJsonToSesionAsync(jsonResult);
+                return "logged";
+            }
         }
         public async Task<string> PostUsuarioFaceAsync(String jsonFacebook)
         {
@@ -91,6 +133,15 @@ namespace Techo_App.Services
             //api/friends/{id}
             if (jsonResult.Contains("added"))
             {
+                var sesion = new Sesion();
+                var idUsuarios = (string)JObject.Parse(jsonResult)["options"];
+                sesion.idUsuarios = int.Parse(idUsuarios);
+                sesion.firstName = usuarioFacebook.nombre;
+                sesion.lastName = usuarioFacebook.apellido;
+                sesion.photo = usuarioFacebook.foto;
+                sesion.role = usuarioFacebook.idRol;
+                SesionService sesionService = new SesionService();
+                await sesionService.SetSesionDbAsync(sesion);
                 return "added";
             }
             else
@@ -124,9 +175,9 @@ namespace Techo_App.Services
                 sesion.role = jsonUsuario["idRol"].Value<int>();
             }
             SesionService sesionService = new SesionService();
-            var fb = DependencyService.Get<IFirebase>().getFirebaseUserId();
-            Debug.WriteLine(fb + "es el id de firebase");
-            var resultfireb = await sesionService.UpdateFirebaseIdToken(sesion.idUsuarios, (string)fb);
+            ///var fb = DependencyService.Get<IFirebase>().getFirebaseUserId();
+            //Debug.WriteLine(fb + "es el id de firebase");
+            //var resultfireb = await sesionService.UpdateFirebaseIdToken(sesion.idUsuarios, (string)fb);
             await sesionService.SetSesionDbAsync(sesion);
             return JsonConvert.DeserializeObject<Sesion>(json);
         }

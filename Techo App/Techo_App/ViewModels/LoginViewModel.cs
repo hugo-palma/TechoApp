@@ -56,8 +56,9 @@ namespace Techo_App.ViewModels
                             if (result.ToString() == "successful")
                             {
                                 //credenciales verificadas
-                                registerPage.Navigation.InsertPageBefore(new DetalleEventoPage(evento), registerPage);
-                                await Navigation.PopToRootAsync();
+                                await Navigation.PushAsync(new DetalleEventoPage(evento));
+                                //registerPage.Navigation.InsertPageBefore(new DetalleEventoPage(evento), registerPage);
+                                //await Navigation.PopToRootAsync();
                             }
                             else if (result.ToString() == "unsuccessful")
                             {

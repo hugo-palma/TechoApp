@@ -33,8 +33,11 @@ namespace Techo_App.ViewModels
         }
         private async Task InitializeDataAsync(int idEventos)
         {
+
             checklistServices = new ChecklistServices();
-            
+            //var checklist = new List<Check>();
+            //checklist.Add(new Check { idArticulo = 1, nombre = "gorra" });
+                
             coleccionCheck = new ObservableCollection<Check>();
             var checklist = await checklistServices.GetChecklistAsync(idEventos);
             foreach (var check in checklist)

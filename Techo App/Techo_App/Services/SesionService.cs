@@ -65,6 +65,7 @@ namespace Techo_App.Services
                 await Database.DeleteAllAsync<Sesion>();
             }
         }
+        /*
         public async Task<string> UpdateFirebaseIdToken(int idUsuarios, string firebaseUserId)
         {
             RestClient<FirebaseToken> restClient = new RestClient<FirebaseToken>("enviarToken");
@@ -78,6 +79,6 @@ namespace Techo_App.Services
                 return "succesful";
             }
             return "unsuccessful";
-        }
+        }*/
     }
 }

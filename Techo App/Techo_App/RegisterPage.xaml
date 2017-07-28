@@ -7,11 +7,10 @@
             <StackLayout Orientation="Vertical">
                 <Label Text="Registro de usuario" HorizontalOptions="Center" FontSize="20"/>
                 <Button x:Name="btnFace" Image="facebook.png" Text="Conectar con Facebook" BackgroundColor="White" Clicked="btnFace_Clicked"></Button>
-                <Button x:Name="btnTwitter" Image="twitter.png" Text="Conectar con Twitter" BackgroundColor="LightBlue"></Button>
-                <Button x:Name="btnGoogle" Image="google.png" Text="Conectar con Google+" BackgroundColor="Red"></Button>
+                <Button x:Name="btnTwitter" Image="twitter.png" Text="Conectar con Twitter" BackgroundColor="LightBlue" Clicked="btnTwitter_Clicked"></Button>
                 <Button x:Name="btnCorreo" Text="REGISTRARSE" BackgroundColor="White" Clicked="btnCorreo_Clicked"/>
-                <Button x:Name="btnIniciar" Text="Iniciar Sesion" BackgroundColor="#025d91" Clicked="btnIniciar_Clicked"/>
-                <Button x:Name="btnCancelar" Text="Cancelar" BackgroundColor="White" TextColor="Blue" Clicked="btnCancelar_Clicked"/>
+                <Button x:Name="btnIniciar" Text="Iniciar Sesion" BackgroundColor="#3d84f7" Clicked="btnIniciar_Clicked"/>
+                <Button x:Name="btnCancelar" Text="Cancelar" BackgroundColor="White" Clicked="btnCancelar_Clicked"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -46,15 +46,15 @@ namespace Techo_App.ViewModels
             listView.ItemTemplate = new DataTemplate(typeof(CustomAttendantsCell));*/
             foreach (var voluntario in listaTemp)
             {
-                if(voluntario.amigos == 0)
+                if(voluntario.amigos == "0")
                 {
                     voluntario.textoBoton = "Solicitud Pendiente";
                 }
-                else if(voluntario.amigos == 1)
+                else if(voluntario.amigos == "1")
                 {
                     voluntario.textoBoton = "Ver";
                 }
-                else if(voluntario.amigos == 2)
+                else if(voluntario.amigos == null)
                 {
                     voluntario.textoBoton = "Enviar Solicitud";
                 }
@@ -87,14 +87,14 @@ namespace Techo_App.ViewModels
                 {
                     var voluntarioSeleccionado = voluntario as Voluntario;
                     Debug.WriteLine(voluntarioSeleccionado.nombre);
-                    if(voluntarioSeleccionado.amigos == 2)
+                    if(voluntarioSeleccionado.amigos == null)
                     {
                         friendsService = new FriendsService();
                         var result = (string) await friendsService.PostFrienshipRequest(await sesionService.GetSesionIdUserDbAsync(), voluntarioSeleccionado.idUsuarios);
                         if (result == "successful")
                         {
                             int numero = voluntariosCollection.IndexOf(voluntarioSeleccionado);
-                            voluntarioSeleccionado.textoBoton = "ya";
+                            voluntarioSeleccionado.textoBoton = "SOLICITUD PENDIENTE";
                             voluntariosCollection[numero] = voluntarioSeleccionado;
                             OnPropertyChanged();
                         }

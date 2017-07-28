@@ -16,8 +16,8 @@
                 <Entry Text="{Binding identidad.correo, Mode=TwoWay}"/>
                 <Label Text="Contraseña" />
                 <Entry Text="{Binding identidad.password, Mode=TwoWay}"/>
-                <Button x:Name="btnIniciar" BackgroundColor="GreenYellow" Text="INICIAR SESION" Command="{Binding LoginCommand}"/>
-                <Button x:Name="btnCancelar" BackgroundColor="GreenYellow" Text="CANCELAR" Command="{Binding CancelarCommand}"/>
+                <Button x:Name="btnIniciar" BackgroundColor="#3d84f7" Text="INICIAR SESION" Command="{Binding LoginCommand}"/>
+                <Button x:Name="btnCancelar" Text="CANCELAR" Command="{Binding CancelarCommand}"/>
                 <Label x:Name="lblEstado" Text="{Binding mensaje}" HorizontalOptions="Center" FontSize="24" TextColor="{Binding mensaje, Converter={StaticResource TextToColorConverter}}"/>
             </StackLayout>
         </ScrollView>
